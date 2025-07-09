@@ -1,11 +1,13 @@
 "use client";
 
-declare global {
-  interface Window {
-    kakao: any;
-  }
-}
+import Link from "next/link";
 
 export default function Map() {
-  return <>Map</>;
+  return (
+    <>
+      <Link href={"/map/1"}>1</Link>
+      <Link href={"/map/2"}>2</Link>
+      <Link href={"/map/3"}>3</Link>
+    </>
+  );
 }
