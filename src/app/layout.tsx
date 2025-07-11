@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import StoreProvider from "./StoreProvider";
 
 export const metadata: Metadata = {
   title: "Semi Map",
@@ -14,9 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <StoreProvider>
-        <body>{children}</body>
-      </StoreProvider>
+      <body>{children}</body>
     </html>
   );
 }
