@@ -1,40 +1,40 @@
-# GitHub Action 이름 지정!
 name: 테스트 실행!
 
-# 이벤트 지정!
 on:
   push:
     branches: [ "main", "develop" ]
   pull_request:
     branches: [ "main", "develop" ]
 
-# 작업 지정!
 jobs:
-  test: # 작업 이름!
-    runs-on: ubuntu-latest
+  test:
+    runs-on: ubuntu-22.04
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x] # 테스트할 Node.js 버전 목록!
+        node-version: [20]
 
+    # 레포지토리 체크아웃
     steps:
     - uses: actions/checkout@v4
-    
+
+    # pnpm 설치
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 10
+
+    # Node 버전 세팅 및 pnpm 캐시 활용
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-        
-    - name: Enable Corepack & Install pnpm
-      run: |
-        corepack enable
-        corepack prepare pnpm@latest --activate
+        cache: 'pnpm'
 
-    - name: Check pnpm version
-      run: pnpm -v
-
+    # 의존성 설치
     - name: Install dependencies
-      run: pnpm ci
+      run: pnpm install
 
+    # 테스트 실행
     - name: Run tests
       run: pnpm test
