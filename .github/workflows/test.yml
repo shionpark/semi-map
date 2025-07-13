@@ -15,14 +15,19 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x] # 테스트할 Node.js 버전 목록!
+        node-version: [20.x, 22.x] # 테스트할 Node.js 버전 목록!
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'pnpm'
+    
+    - name: Install pnpm
+      run: npm install -g pnpm
+    
     - run: pnpm ci # Clean Install 명령으로 의존성 설치!
-    - run: pnpm test # p테스트 실행!
+    - run: pnpm test # 테스트 실행!
