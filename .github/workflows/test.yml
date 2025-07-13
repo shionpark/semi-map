@@ -19,10 +19,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci # Clean Install 명령으로 의존성 설치!
-    - run: npm test # 테스트 실행!
+        
+    - name: Enable Corepack & Install pnpm
+      run: |
+        corepack enable
+        corepack prepare pnpm@latest --activate
+
+    - name: Check pnpm version
+      run: pnpm -v
+
+    - name: Install dependencies
+      run: pnpm ci
+
+    - name: Run tests
+      run: pnpm test
