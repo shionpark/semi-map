@@ -3,7 +3,8 @@ import { test, expect } from "@playwright/test";
 test("제목이 있는가?", async ({ page }) => {
   await page.goto("/");
 
-  await expect(page).toHaveTitle(/Semi Map/);
+  const heading = page.getByRole("heading", { name: "Semi Map" });
+  await expect(heading).toBeVisible();
 });
 
 test("링크 클릭하여 페이지 이동", async ({ page }) => {
