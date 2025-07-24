@@ -16,7 +16,7 @@ export function useInitializeKakaoMap() {
         level: 3,
       };
 
-      const map = new window.kakao.maps.Map(mapRef.current, options);
+      new window.kakao.maps.Map(mapRef.current, options);
     });
   }, [isSdkLoaded]);
 
