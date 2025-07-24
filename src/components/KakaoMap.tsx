@@ -9,7 +9,7 @@ export default function KakaoMap() {
 
   return (
     <>
-      <div id="map" data-testid="map" ref={mapRef} className={styles.map} />
+      <div data-testid="map" ref={mapRef} className={styles.map} />
       <Script
         src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_KEY}&libraries=services&autoload=false`}
         onLoad={() => sdkLoadSuccess()}
