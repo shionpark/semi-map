@@ -26,6 +26,9 @@ jobs:
         run: pnpm exec playwright install --with-deps
 
       - name: Run Playwright tests
+        env:
+          NEXT_PUBLIC_KAKAO_KEY: ${{ secrets.NEXT_PUBLIC_KAKAO_KEY }}
+          NEXT_PUBLIC_API_BASE_URL: ${{ secrets.NEXT_PUBLIC_API_BASE_URL }}
         run: pnpm run test:e2e
 
       - uses: actions/upload-artifact@v4
