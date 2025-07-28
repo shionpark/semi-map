@@ -1,4 +1,4 @@
-import { defineConfig } from "@playwright/test";
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
