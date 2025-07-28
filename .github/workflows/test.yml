@@ -1,40 +1,38 @@
-name: 테스트 실행!
+name: 유닛 테스트 및 타입 체크
 
 on:
   push:
-    branches: [ "main", "develop" ]
+    branches: [main, develop]
   pull_request:
-    branches: [ "main", "develop" ]
+    branches: [main, develop]
 
 jobs:
   test:
     runs-on: ubuntu-22.04
 
-    strategy:
-      matrix:
-        node-version: [20]
-
     # 레포지토리 체크아웃
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    # pnpm 설치
-    - name: Install pnpm
-      uses: pnpm/action-setup@v4
-      with:
-        version: 10
+      # pnpm 설치
+      - name: Install pnpm 10
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
-    # Node 버전 세팅 및 pnpm 캐시 활용
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'pnpm'
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
 
-    # 의존성 설치
-    - name: Install dependencies
-      run: pnpm install
+      # 의존성 설치
+      - name: Install dependencies
+        run: pnpm install
 
-    # 테스트 실행
-    - name: Run tests
-      run: pnpm test
+      - name: Type check
+        run: pnpm exec tsc --noEmit --skipLibCheck
+
+      # 테스트 실행
+      - name: Run tests
+        run: pnpm test
