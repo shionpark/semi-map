@@ -27,5 +27,14 @@
     }
   },
   "include": ["src"],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    ".pnpm",
+    "**/__tests__/**",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "e2e",
+    "playwright-report",
+    "vitest.config.ts"
+  ]
 }

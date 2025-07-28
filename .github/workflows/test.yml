@@ -35,6 +35,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Type check
+        run: pnpm exec tsc --noEmit --skipLibCheck
+
       # 테스트 실행
       - name: Run tests
         run: pnpm test
