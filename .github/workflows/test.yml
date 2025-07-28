@@ -10,10 +10,6 @@ jobs:
   test:
     runs-on: ubuntu-22.04
 
-    strategy:
-      matrix:
-        node-version: [20]
-
     # 레포지토리 체크아웃
     steps:
       - uses: actions/checkout@v4
@@ -24,11 +20,10 @@ jobs:
         with:
           version: 10
 
-      # Node 버전 세팅 및 pnpm 캐시 활용
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 20
           cache: "pnpm"
 
       # 의존성 설치

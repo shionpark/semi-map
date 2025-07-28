@@ -3,7 +3,7 @@
 import KakaoMap from "@/components/KakaoMap";
 import Link from "next/link";
 
-export default function Map() {
+export default function MapPage() {
   return (
     <>
       <KakaoMap />
