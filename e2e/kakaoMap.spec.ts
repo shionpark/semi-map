@@ -11,6 +11,7 @@ test("링크 클릭하여 페이지 이동", async ({ page }) => {
   await page.goto("/");
 
   await page.getByRole("link", { name: /지도/ }).click();
+  await expect(page).toHaveURL("/map");
 });
 
 test("카카오 지도가 정상적으로 로드되는가?", async ({ page }) => {
