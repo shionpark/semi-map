@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { useKakaoSdkStore } from "store/useKakaoSdkStore";
+import { useEffect, useRef } from 'react';
+import { useKakaoSdkStore } from 'store/useKakaoSdkStore';
 
 export function useInitializeKakaoMap() {
   const mapRef = useRef<HTMLDivElement | null>(null);

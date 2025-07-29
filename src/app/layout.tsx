@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import "./globals.css";
-import Script from "next/script";
-import { useInitializeKakaoMap } from "@/hooks/useInitializeKakaoMap";
+import './globals.css';
+import Script from 'next/script';
+import { useInitializeKakaoMap } from '@/hooks/useInitializeKakaoMap';
 
 export default function RootLayout({
   children,
@@ -13,7 +13,7 @@ export default function RootLayout({
 
   const kakaoKey = process.env.NEXT_PUBLIC_KAKAO_KEY;
   if (!kakaoKey) {
-    console.error("NEXT_PUBLIC_KAKAO_KEY environment variable is required");
+    console.error('NEXT_PUBLIC_KAKAO_KEY environment variable is required');
   }
 
   return (
