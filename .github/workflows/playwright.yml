@@ -1,8 +1,6 @@
 name: E2E 테스트
 
 on:
-  push:
-    branches: [main, develop]
   pull_request:
     branches: [main, develop]
 
