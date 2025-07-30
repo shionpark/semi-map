@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useInitializeKakaoMap } from "@/hooks/useInitializeKakaoMap";
-import { styles } from "@/styles/index";
+import { useInitializeKakaoMap } from '@/hooks/useInitializeKakaoMap';
+import { styles } from '@/styles/index';
 
 export default function KakaoMap() {
   const { mapRef } = useInitializeKakaoMap();

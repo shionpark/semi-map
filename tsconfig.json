@@ -20,13 +20,13 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["*"],
       "@/components/*": ["components/*"],
       "@/hooks/*": ["hooks/*"],
       "@/styles/*": ["styles/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", ".next/types/**/*.ts"],
   "exclude": [
     "node_modules",
     ".pnpm",
