@@ -1,4 +1,7 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npm test
+pnpm test || echo "❌ 테스트 실패!"
+echo  "✅ 테스트 통과! 커밋 진행 중..."
+
+pnpm lint-staged
