@@ -16,7 +16,7 @@
     "test:e2e:report": "playwright show-report",
     "test:e2e:debug": "playwright test --debug",
     "test:e2e:clean": "rm -rf playwright-report test-results",
-    "prepare": "husky install"
+    "prepare": "husky install && chmod ug+x .husky/*"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
