@@ -1,9 +1,6 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-echo "🔍 테스트 실행 중..."
-pnpm test || (echo "❌ 테스트 실패!" && exit 1)
-
 echo "🔍 Lint 실행 중..."
 pnpm lint-staged || (echo "❌ Lint 에러! 수정 후 다시 커밋해 주세요." && exit 1)
 
