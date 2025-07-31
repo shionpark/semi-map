@@ -2,9 +2,19 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 echo "🔍 타입 체크 중..."
-pnpm exec tsc --noEmit --skipLibCheck || (echo "❌ 타입 에러! 수정 후 다시 커밋해 주세요." && exit 1)
+if ! pnpm exec tsc --noEmit --skipLibCheck; then
+  echo "❌ 타입 에러가 발견되었습니다. 다음을 확인해 주세요:"
+  echo "  - TypeScript 컴파일 에러 수정"
+  echo "  - 타입 정의 확인"
+  exit 1
+fi
 
 echo "🔍 테스트 실행 중..."
-pnpm test || (echo "❌ 테스트 실패!" && exit 1)
+if ! pnpm test; then
+  echo "❌ 테스트가 실패했습니다. 다음을 확인해 주세요:"
+  echo "  - 실패한 테스트 케이스 수정"
+  echo "  - 테스트 환경 설정 확인"
+  exit 1
+fi
 
 echo "✅ 모든 검사 통과! 푸시를 진행합니다."
