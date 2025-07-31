@@ -15,7 +15,14 @@
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:report": "playwright show-report",
     "test:e2e:debug": "playwright test --debug",
-    "test:e2e:clean": "rm -rf playwright-report test-results"
+    "test:e2e:clean": "rm -rf playwright-report test-results",
+    "prepare": "husky install && chmod ug+x .husky/*"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --cache --fix",
+      "prettier --cache --write"
+    ]
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
@@ -34,7 +41,9 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.5",
+    "husky": "^8.0.0",
     "jsdom": "^26.1.0",
+    "lint-staged": "^16.1.2",
     "prettier": "^3.6.2",
     "tailwindcss": "^4",
     "typescript": "^5",
