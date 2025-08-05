@@ -41,38 +41,3 @@ export function createCustomOverlay(
     overlay.setMap(map);
   });
 }
-
-export function getCurrentLatLng() {
-  navigator.geolocation.getCurrentPosition(showYourLocation, showErrorMsg);
-
-  function showYourLocation(position: any) {
-    const userLat = position.coords.latitude;
-    const userLng = position.coords.longitude;
-
-    console.log(userLat, userLng); // 확인 완료
-  }
-
-  function showErrorMsg(error: any) {
-    switch (error.code) {
-      case error.PERMISSION_DENIED:
-        console.log(
-          '⚠️ 사용자가 Geolocation API의 사용 요청을 거부하였습니다.'
-        );
-        break;
-
-      case error.POSITION_UNAVAILABLE:
-        console.log('⚠️ 가져온 위치 정보를 사용할 수 없습니다.');
-        break;
-
-      case error.TIMEOUT:
-        console.log(
-          '⚠️ 위치 정보를 가져오기 위한 요청이 허용 시간을 초과했습니다.'
-        );
-        break;
-
-      case error.UNKNOWN_ERROR:
-        console.log('⚠️ 알 수 없는 오류가 발생했습니다.');
-        break;
-    }
-  }
-}
