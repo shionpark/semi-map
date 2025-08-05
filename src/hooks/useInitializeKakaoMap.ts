@@ -1,29 +1,31 @@
 import { useEffect, useRef } from 'react';
-import { useKakaoSdkStore } from 'store/useKakaoSdkStore';
 
-export function useInitializeKakaoMap() {
+import { useKakaoSdkStore } from '@/store/useKakaoSdkStore';
+import { createInitialMap, updateMap } from '@/utils/kakao.utils';
+import type { LatLng } from './useCurrentLatLng';
+
+export function useInitializeKakaoMap(latLng: LatLng) {
   const mapRef = useRef<HTMLDivElement | null>(null);
+  const mapInstanceRef = useRef<typeof window.kakao.maps.Map | null>(null);
+  const markerRef = useRef<typeof window.kakao.maps.Marker | null>(null);
 
-  const { sdkLoadSuccess, sdkLoadFail } = useKakaoSdkStore();
-  const isSdkLoaded = useKakaoSdkStore((state) => state.isLoaded);
+  const { isLoaded } = useKakaoSdkStore();
 
   useEffect(() => {
-    if (!isSdkLoaded || !window.kakao?.maps || !mapRef.current) return;
+    if (!isLoaded || !window.kakao?.maps || !mapRef.current) return;
 
     window.kakao.maps.load(() => {
-      const options = {
-        center: new window.kakao.maps.LatLng(33.450701, 126.570667),
-        level: 3,
-      };
+      const kakaoLatLng = new window.kakao.maps.LatLng(latLng.lat, latLng.lng);
 
-      new window.kakao.maps.Map(mapRef.current, options);
+      if (!mapInstanceRef.current) {
+        createInitialMap(mapRef, mapInstanceRef, markerRef, kakaoLatLng);
+      } else {
+        updateMap(mapInstanceRef, markerRef, kakaoLatLng);
+      }
     });
-  }, [isSdkLoaded]);
+  }, [isLoaded, latLng]);
 
   return {
     mapRef,
-    isSdkLoaded,
-    sdkLoadSuccess,
-    sdkLoadFail,
   };
 }
