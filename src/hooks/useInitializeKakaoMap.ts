@@ -1,19 +1,27 @@
 import { useEffect, useRef } from 'react';
 
-import { LatLng } from './useCurrentLatLng';
 import { useKakaoSdkStore } from '@/store/useKakaoSdkStore';
-import { createCustomOverlay, createInitialMap } from '@/utils/kakao.utils';
+import { createInitialMap, updateMap } from '@/utils/kakao.utils';
+import type { LatLng } from './useCurrentLatLng';
 
 export function useInitializeKakaoMap(latLng: LatLng) {
   const mapRef = useRef<HTMLDivElement | null>(null);
+  const mapInstanceRef = useRef<typeof window.kakao.maps.Map | null>(null);
+  const markerRef = useRef<typeof window.kakao.maps.Marker | null>(null);
+
   const { isLoaded } = useKakaoSdkStore();
 
   useEffect(() => {
     if (!isLoaded || !window.kakao?.maps || !mapRef.current) return;
 
     window.kakao.maps.load(() => {
-      const { map, marker } = createInitialMap(mapRef, latLng);
-      createCustomOverlay(map, marker);
+      const kakaoLatLng = new window.kakao.maps.LatLng(latLng.lat, latLng.lng);
+
+      if (!mapInstanceRef.current) {
+        createInitialMap(mapRef, mapInstanceRef, markerRef, kakaoLatLng);
+      } else {
+        updateMap(mapInstanceRef, markerRef, kakaoLatLng);
+      }
     });
   }, [isLoaded, latLng]);
 
