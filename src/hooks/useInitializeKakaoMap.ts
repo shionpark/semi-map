@@ -4,11 +4,10 @@ import { useKakaoSdkStore } from 'store/useKakaoSdkStore';
 export function useInitializeKakaoMap() {
   const mapRef = useRef<HTMLDivElement | null>(null);
 
-  const { sdkLoadSuccess, sdkLoadFail } = useKakaoSdkStore();
-  const isSdkLoaded = useKakaoSdkStore((state) => state.isLoaded);
+  const { isLoaded } = useKakaoSdkStore();
 
   useEffect(() => {
-    if (!isSdkLoaded || !window.kakao?.maps || !mapRef.current) return;
+    if (!isLoaded || !window.kakao?.maps || !mapRef.current) return;
 
     window.kakao.maps.load(() => {
       const options = {
@@ -18,12 +17,9 @@ export function useInitializeKakaoMap() {
 
       new window.kakao.maps.Map(mapRef.current, options);
     });
-  }, [isSdkLoaded]);
+  }, [isLoaded]);
 
   return {
     mapRef,
-    isSdkLoaded,
-    sdkLoadSuccess,
-    sdkLoadFail,
   };
 }

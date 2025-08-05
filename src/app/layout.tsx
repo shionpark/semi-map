@@ -2,14 +2,14 @@
 
 import './globals.css';
 import Script from 'next/script';
-import { useInitializeKakaoMap } from '@/hooks/useInitializeKakaoMap';
+import { useKakaoSdkStore } from '@/store/useKakaoSdkStore';
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { sdkLoadSuccess, sdkLoadFail } = useInitializeKakaoMap();
+  const { sdkLoadSuccess, sdkLoadFail } = useKakaoSdkStore();
 
   const kakaoKey = process.env.NEXT_PUBLIC_KAKAO_KEY;
   if (!kakaoKey) {
