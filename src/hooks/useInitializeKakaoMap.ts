@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react';
 
-import { createCustomOverlay, createInitialMap } from '@/utils/kakao.utils';
+import { LatLng } from './useCurrentLatLng';
 import { useKakaoSdkStore } from '@/store/useKakaoSdkStore';
+import { createCustomOverlay, createInitialMap } from '@/utils/kakao.utils';
 
-export function useInitializeKakaoMap() {
+export function useInitializeKakaoMap(latLng: LatLng) {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const { isLoaded } = useKakaoSdkStore();
 
@@ -11,11 +12,10 @@ export function useInitializeKakaoMap() {
     if (!isLoaded || !window.kakao?.maps || !mapRef.current) return;
 
     window.kakao.maps.load(() => {
-      const { map, marker } = createInitialMap(mapRef);
-
+      const { map, marker } = createInitialMap(mapRef, latLng);
       createCustomOverlay(map, marker);
     });
-  }, [isLoaded]);
+  }, [isLoaded, latLng]);
 
   return {
     mapRef,

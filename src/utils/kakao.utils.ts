@@ -1,9 +1,14 @@
 import React, { RefObject } from 'react';
 import { createRoot } from 'react-dom/client';
-import OverlayContent from '@/components/OverlayContent';
 
-export function createInitialMap(mapRef: RefObject<HTMLDivElement | null>) {
-  const currentPosition = new window.kakao.maps.LatLng(33.450701, 126.570667);
+import OverlayContent from '@/components/OverlayContent';
+import { LatLng } from '@/hooks/useCurrentLatLng';
+
+export function createInitialMap(
+  mapRef: RefObject<HTMLDivElement | null>,
+  latLng: LatLng
+) {
+  const currentPosition = new window.kakao.maps.LatLng(latLng.lat, latLng.lng);
 
   const map = new window.kakao.maps.Map(mapRef.current, {
     center: currentPosition,
