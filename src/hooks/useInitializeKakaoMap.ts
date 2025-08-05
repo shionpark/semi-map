@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import { createMarker } from '@/utils/kakao.utils';
+import { createCustomOverlay } from '@/utils/kakao.utils';
 import { useKakaoSdkStore } from '@/store/useKakaoSdkStore';
 
 export function useInitializeKakaoMap() {
@@ -21,7 +21,12 @@ export function useInitializeKakaoMap() {
         level: 3,
       });
 
-      createMarker(map, currentPosition);
+      const marker = new window.kakao.maps.Marker({
+        map,
+        position: currentPosition,
+      });
+
+      createCustomOverlay(map, marker);
     });
   }, [isLoaded]);
 
