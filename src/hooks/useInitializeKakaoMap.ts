@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 
 import { useKakaoSdkStore } from '@/store/useKakaoSdkStore';
 import { createInitialMap, updateMap } from '@/utils/kakao.utils';
-import type { LatLng } from './useCurrentLatLng';
+import type { LatLng } from '@/types/location';
 
 export function useInitializeKakaoMap(latLng: LatLng) {
   const mapRef = useRef<HTMLDivElement | null>(null);
