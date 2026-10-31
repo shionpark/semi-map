@@ -1,59 +1,63 @@
 # Semi Map
 
-사용자의 현재 위치와 저장된 장소를 지도에 시각화하는 장소 기록 서비스
+현재 위치를 기준으로 주변 장소를 지도에 보여 주는 개인 프로젝트입니다. Next.js App Router에 Kakao 지도를 붙이고, 테스트와 CI를 함께 구성했습니다.
 
-<!--
-<img src="./public/thumbnail.png" /> 스크린샷 이미지 경로 예시
--->
+## 구현된 기능
+
+- **현재 위치로 지도 초기화**: 브라우저 위치 정보로 지도의 중심을 내 위치에 맞춥니다.
+- **커스텀 오버레이**: 현재 위치에 정보 오버레이를 표시합니다.
+- **지도 SDK 로드 상태 관리**: `next/script`의 로드 이벤트를 Zustand 스토어로 공유해, SDK가 준비된 뒤에 지도를 초기화합니다.
+
+## 예정
+
+- 키워드 장소 검색과 마커 표시
+- 장소 저장
+- 현재 위치 반경 안의 장소 필터
 
 ## 기술 스택
 
-| Category      | Tech                 |
-| ------------- | -------------------- |
-| Framework     | Next.js (App Router) |
-| Language      | TypeScript           |
-| Map API       | Kakao Map API        |
-| Styling       | Tailwind CSS         |
-| State Mgmt    | Zustand              |
-| Data Fetching | React Query          |
-| Deployment    | Vercel               |
-
-## 주요 기능
-
-- **현재 위치 확인**: 브라우저 위치 정보를 기반으로 내 위치를 지도에 표시
-- **장소 검색 및 마커 표시**: 키워드 기반 Kakao 장소 검색 및 마커 표시
-- **장소 저장**: 사용자가 장소를 저장하여 지도에 표시
-- **2km 이내 장소 필터링**: 현재 위치 기준 반경 2km 내 장소 필터
-- **커스텀 오버레이**: 장소에 대한 정보 및 메모를 오버레이로 출력
+| 구분 | 기술 |
+| --- | --- |
+| Framework | Next.js (App Router) |
+| Language | TypeScript |
+| Map | Kakao Maps JavaScript API |
+| State | Zustand |
+| Styling | Tailwind CSS |
+| Test | Vitest, Playwright |
+| CI | GitHub Actions (린트, 유닛 테스트·타입 체크, E2E 테스트, Docker 이미지 빌드) |
 
 ## 폴더 구조
 
 ```bash
 semi-map/
-├── .storybook/             # Storybook 설정 디렉토리
-│   ├── main.ts             # 스토리북 설정
-│   ├── preview.ts          # 전역 스타일, 데코레이터 등
-│   └── tsconfig.json       # (옵션) 타입 설정
-├── public/
+├── e2e/                  # Playwright E2E 테스트
 ├── src/
-│   ├── components/         # 앱 내 공통 UI 컴포넌트
-│   │   ├── Button.tsx
-│   │   ├── Button.stories.tsx
-│   │   └── ...
-│   ├── pages/              # Next.js 페이지
-│   ├── hooks/
+│   ├── app/              # App Router 페이지 (/, /map)
+│   ├── components/       # KakaoMap, OverlayContent
+│   ├── hooks/            # 현재 위치 조회, 지도 초기화
+│   ├── store/            # Kakao SDK 로드 상태 (Zustand) + 테스트
+│   ├── types/            # kakao 타입 선언
+│   ├── utils/
+│   ├── const/
 │   └── styles/
-│       └── globals.css
-├── package.json
-└── tsconfig.json
+└── .github/workflows/    # lint, test, playwright, docker
 ```
 
 ## 실행 방법
 
-```bash
-# 설치
-pnpm install
+`.env.local`에 Kakao JavaScript 키를 넣습니다.
 
-# 개발 서버 실행
-pnpm dev
+```bash
+NEXT_PUBLIC_KAKAO_KEY=발급받은_JavaScript_키
 ```
+
+```bash
+pnpm install
+pnpm dev          # 개발 서버
+pnpm test:run     # 유닛 테스트
+pnpm test:e2e     # E2E 테스트
+```
+
+## 관련 글
+
+- [왜 Next.js에서 Kakao Map Script가 로드되지 않을까?](https://shion-blog.vercel.app/posts/nextjs-kakao-sdk-script)
